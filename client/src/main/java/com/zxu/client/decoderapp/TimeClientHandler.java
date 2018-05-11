@@ -1,4 +1,4 @@
-package com.zxu.client;
+package com.zxu.client.decoderapp;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -9,31 +9,28 @@ import java.util.logging.Logger;
 
 public class TimeClientHandler extends ChannelHandlerAdapter {
     private static final Logger logger = Logger.getLogger(TimeClientHandler.class.getName());
-    private final ByteBuf firstMessage;
+
+    static final String ECHO_ERQ = "Hi, Lilinfeng. Welcome to netty.$_";
+    private int counter;
 
     public TimeClientHandler(){
-        byte[] req = "QUERY TIME ORDER".getBytes();
-        firstMessage = Unpooled.buffer(req.length);
-        firstMessage.writeBytes(req);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(firstMessage);
+        for (int i=0;i<10;i++){
+            ctx.writeAndFlush(Unpooled.copiedBuffer(ECHO_ERQ.getBytes()));
+        }
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buf = (ByteBuf)msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        String body = new String(req,"UTF-8");
-        System.out.println("Now is:"+body);
+        System.out.println("This is:"+ ++counter+"times receive server:[" + msg + "]");
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        logger.warning("Unexpected exception form downstream:"+cause.getMessage());
+        cause.printStackTrace();
         ctx.close();
     }
 }

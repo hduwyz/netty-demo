@@ -18,6 +18,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <netty_version>5.0.0.Alpha1</netty_version>
+        <msgpack_version>0.6.11</msgpack_version>
+        <javassist_version>3.9.0.GA</javassist_version>
+        <protobuf_version>3.4.0</protobuf_version>
         <!-- 配置插件版本 -->
         <maven_source_plugin_version>2.1.1</maven_source_plugin_version>
         <maven_jar_plugin_version>2.3.2</maven_jar_plugin_version>
@@ -45,6 +48,22 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty_version}</version>
+            </dependency>
+            <!-- 序列化工具 -->
+            <dependency>
+                <groupId>org.msgpack</groupId>
+                <artifactId>msgpack</artifactId>
+                <version>${msgpack_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf_version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
